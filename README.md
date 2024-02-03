@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-Ссылки на проект IP 158.160.53.43
+IP 158.160.53.43
 
 Frontend https://kolos.nomoredomainsmonster.ru/
 
