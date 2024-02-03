@@ -45,6 +45,6 @@ class Api {
   }
 }
 const apiConfig = {
-  baseUrl: 'https://api.hellomesto.nomoredomains.monster',
+  baseUrl: 'https://api.kolos.nomoredomainsmonster.ru',
 };
 export const auth = new Api(apiConfig);

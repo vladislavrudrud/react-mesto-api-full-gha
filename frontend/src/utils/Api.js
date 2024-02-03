@@ -82,13 +82,5 @@ class Api {
     });
   }
 }
-// const apiConfig = {
-//   baseUrl: "https://api.hellomesto.nomoredomains.monster",
-//   headers: {
-//     Authorization: `Bearer ${localStorage.getItem('token')}`,
-//     "Content-Type": "application/json",
-//   },
-// };
-// export const api = new Api(apiConfig);
 
 export { Api }
