@@ -1,0 +1,12 @@
+.card__button-delete {
+  background: no-repeat center/contain url("../../../images/icon-rem.svg");
+  position: absolute;
+  width: 18px;
+  height: 19px;
+  top: 20px;
+  right: 20px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  cursor: pointer;
+}

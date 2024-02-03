@@ -1,0 +1,9 @@
+.card {
+  padding-bottom: 67px;
+}
+
+@media screen and (max-width: 450px) {
+  .element-container {
+    padding-bottom: 48px;
+  }
+}
