@@ -9,8 +9,8 @@
 
 ## Ссылки на проект
 
-IP-адрес x.x.x.x
+IP-адрес 158.160.53.43
 
-Frontend https://...
+Frontend https://kolos.nomoredomainsmonster.ru/
 
-Backend https://...
+Backend https://api.kolos.nomoredomainsmonster.ru/
