@@ -7,7 +7,7 @@ const {
   createCard,
   getAllCards,
 } = require('../controllers/cards');
-const { REGEXP } = require('../utils/constants');
+const { REGEX } = require('../utils/constants');
 
 cardsRouter.get('/', getAllCards);
 
@@ -16,7 +16,7 @@ cardsRouter.post(
   celebrate({
     body: Joi.object().keys({
       name: Joi.string().required().min(2).max(30),
-      link: Joi.string().required().regex(REGEXP),
+      link: Joi.string().required().regex(REGEX),
     }),
   }),
   createCard

@@ -6,14 +6,13 @@ const helmet = require('helmet');
 const cors = require('cors');
 const { celebrate, Joi, errors } = require('celebrate');
 const router = require('./routes');
-const defaultError = require('./errors/default');
+const defaultError = require('./errors/defaulterror');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
-const { REGEXP } = require('./utils/constants');
-const NotFoundError = require('./errors/notfound');
+const { REGEX } = require('./utils/constants');
+const NotFoundError = require('./errors/notfounderror');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000 } = process.env;
 const app = express();
 
 app.use(cors());
@@ -38,7 +37,7 @@ app.post(
     body: Joi.object().keys({
       name: Joi.string().min(2).max(30),
       about: Joi.string().min(2).max(30),
-      avatar: Joi.string().regex(REGEXP),
+      avatar: Joi.string().regex(REGEX),
       email: Joi.string().required().email(),
       password: Joi.string().required().min(8),
     }),
@@ -69,6 +68,11 @@ app.use((req, res, next) => {
 app.use(errorLogger);
 app.use(defaultError);
 
+const { PORT = 3000, MONGO_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
+mongoose.connect(`${MONGO_URL}`)
+  .then(() => console.log('Подключено'))
+  .catch(() => console.log('Не подключено'));
+
 app.listen(PORT, () => {
-  console.log(`This server is start on ${PORT}`);
+  console.log('Сервер запущен на 3000 порту');
 });

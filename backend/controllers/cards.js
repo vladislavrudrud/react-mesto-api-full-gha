@@ -1,13 +1,14 @@
-const BadRequestError = require('../errors/badrequest');
-const ForbiddenError = require('../errors/forbidden');
-const NotFoundError = require('../errors/notfound');
+const BadRequestError = require('../errors/badrequesterror');
+const ForbiddenError = require('../errors/forbiddenerror');
+const NotFoundError = require('../errors/notfounderror');
 const Card = require('../models/card');
+const { OK, CREATED } = require('../utils/constants');
 
 const getAllCards = (req, res, next) => {
   Card.find({})
     .then((cards) => {
       if (!cards) {
-        throw new NotFoundError('Карточки не найдены.');
+        throw new NotFoundError('Публикации не найдены!');
       }
       return res.send(cards);
     })
@@ -20,11 +21,11 @@ const createCard = (req, res, next) => {
 
   Card.create({ name, link, owner: _id })
     .then((newCard) => {
-      res.status(201).send(newCard);
+      res.status(CREATED).send(newCard);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Некорректные данные при создании карточки.'));
+        next(new BadRequestError('Ошибка при создании публикации!'));
       } else {
         next(err);
       }
@@ -35,20 +36,20 @@ const deleteCard = (req, res, next) => {
   Card.findById(req.params.cardId)
     .then((card) => {
       if (!card) {
-        throw new NotFoundError('Информация по карточке не найдена.');
+        throw new NotFoundError('Публикации не найдены!');
       }
       if (!card.owner.equals(req.user._id)) {
-        throw new ForbiddenError('Нет прав на удаление.');
+        throw new ForbiddenError('Публикацию удалить невозможно!');
       }
       card.deleteOne()
-        .then(() => res.status(200).send({ message: 'Карточка удалена.' }))
+        .then(() => res.status(OK).send({ message: 'Публикация удалена!' }))
         .catch((err) => {
           next(err);
         });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new BadRequestError('Некорректный Id.'));
+        next(new BadRequestError('Ошибка! Идентификатор недопустим!'));
       } else {
         next(err);
       }
@@ -63,7 +64,7 @@ const likeCard = (req, res, next) => {
   )
     .then((card) => {
       if (!card) {
-        throw new NotFoundError('Информация по карточке не найдена.');
+        throw new NotFoundError('Публикации не найдены!');
       }
       return res.send(card);
     })
@@ -78,7 +79,7 @@ const dislikeCard = (req, res, next) => {
   )
     .then((card) => {
       if (!card) {
-        throw new NotFoundError('Информация по карточке не найдена.');
+        throw new NotFoundError('Публикации не найдены!');
       }
       return res.send(card);
     })

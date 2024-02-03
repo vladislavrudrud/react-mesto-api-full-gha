@@ -2,10 +2,11 @@ require('dotenv').config();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const UnauthorizedError = require('../errors/unauthorized');
-const NotFoundError = require('../errors/notfound');
-const ConflictError = require('../errors/conflict');
-const BadRequestError = require('../errors/badrequest');
+const UnauthorizedError = require('../errors/unauthorizederror');
+const NotFoundError = require('../errors/notfounderror');
+const ConflictError = require('../errors/conflicterror');
+const BadRequestError = require('../errors/badrequesterror');
+const { CREATED } = require('../utils/constants');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -13,7 +14,7 @@ const getAllUsers = (req, res, next) => {
   User.find({})
     .then((users) => {
       if (!users) {
-        throw new NotFoundError('Пользователи не найдены.');
+        throw new NotFoundError('Пользователи не найдены!');
       }
       return res.send(users);
     })
@@ -28,7 +29,7 @@ const createUser = (req, res, next) => {
     User.create({
       name, about, avatar, email, password: hash
     })
-      .then((newUser) => res.status(201).send({
+      .then((newUser) => res.status(CREATED).send({
         name: newUser.name,
         about: newUser.about,
         avatar: newUser.avatar,
@@ -37,11 +38,11 @@ const createUser = (req, res, next) => {
       .catch((err) => {
         if (err.code === 11000) {
           next(
-            new ConflictError('Пользователь с таким email уже существует.')
+            new ConflictError('Ошибка! Данные уже используются!')
           );
         } else if (err.name === 'ValidationError') {
           next(
-            new BadRequestError('Некорректные данные при создании пользователя.')
+            new BadRequestError('Неверные данные!')
           );
         } else {
           next(err);
@@ -57,12 +58,12 @@ const login = (req, res, next) => {
   User.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        throw new UnauthorizedError('Пользователь не найден.');
+        throw new UnauthorizedError('Пользователь не найден!');
       }
       return bcrypt.compare(password, user.password)
         .then((matched) => {
           if (!matched) {
-            return next(new UnauthorizedError('Не правильно указан логин или пароль.'));
+            return next(new UnauthorizedError('Неверные данные'));
           }
 
           const token = jwt.sign(
@@ -81,7 +82,7 @@ const getUserById = (req, res, next) => {
   User.findById(req.params.userId)
     .then((user) => {
       if (!user) {
-        throw new NotFoundError('Информация о пользователе не найдена.');
+        throw new NotFoundError('Пользователь не найден!');
       }
       return res.send(user);
     })
@@ -95,14 +96,14 @@ const editProfile = (req, res, next) => {
   User.findByIdAndUpdate(_id, { name, about }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
-        throw new NotFoundError('Информация о пользователе не найдена.');
+        throw new NotFoundError('Пользователь не найден!');
       }
       return res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(
-          new BadRequestError('Некорректные данные при редактировании профиля.')
+          new BadRequestError('Неверные данные!')
         );
       } else {
         next(err);
@@ -117,14 +118,14 @@ const updateAvatar = (req, res, next) => {
   User.findByIdAndUpdate(_id, { avatar }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
-        throw new NotFoundError('Информация о пользователе не найдена.');
+        throw new NotFoundError('Пользователь не найден!');
       }
       return res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(
-          new BadRequestError('Некорректные данные при обновлении аватара.')
+          new BadRequestError('Неверные данные!')
         );
       } else {
         next(err);
@@ -136,7 +137,7 @@ const getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {
-        throw new NotFoundError('Пользователь не найден.');
+        throw new NotFoundError('Пользователь не найден!');
       }
       return res.send(user);
     })

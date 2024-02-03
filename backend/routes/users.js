@@ -7,11 +7,11 @@ const {
   editProfile,
   getCurrentUser,
 } = require('../controllers/users');
-const { REGEXP } = require('../utils/constants');
+const { REGEX } = require('../utils/constants');
 
 usersRouter.patch('/me/avatar', celebrate({
   body: Joi.object().keys({
-    avatar: Joi.string().regex(REGEXP),
+    avatar: Joi.string().regex(REGEX),
   }),
 }), updateAvatar);
 
