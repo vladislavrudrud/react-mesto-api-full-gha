@@ -1,17 +1,12 @@
 @import url("./vendor/normalize.css");
-
 @import url("./blocks/btn/btn.css");
-
 @import url("./blocks/page/page.css");
-
 @import url("./blocks/header/header.css");
 @import url("./blocks/header/__logo/header__logo.css");
 @import url("./blocks/header/__flex/header__flex.css");
 @import url("./blocks/header/__link/header__link.css");
 @import url("./blocks/header/__email/header__email.css");
-
 @import url("./blocks/content/content.css");
-
 @import url("./blocks/profile/profile.css");
 @import url("./blocks/profile/__name/profile__name.css");
 @import url("./blocks/profile/__avatar/profile__avatar.css");
@@ -21,7 +16,6 @@
 @import url("./blocks/profile/__add-button/profile__add-button.css");
 @import url("./blocks/profile/__avatar-container/profile__avatar-container.css");
 @import url("./blocks/profile/__updavatar-button/profile__updavatar-button.css");
-
 @import url("./blocks/card/card.css");
 @import url("./blocks/card/__item/card__item.css");
 @import url("./blocks/card/__items/card__items.css");
@@ -33,17 +27,14 @@
 @import url("./blocks/card/__button-delete/card__button-delete.css");
 @import url("./blocks/card/__likes/card__likes.css");
 @import url("./blocks/card/__likes-count/card__likes-count.css");
-
 @import url("./blocks/footer/footer.css");
 @import url("./blocks/footer/__copyright/footer__copyright.css");
-
 @import url("./blocks/form/form.css");
 @import url("./blocks/form/__input/form__input.css");
 @import url("./blocks/form/__input/_message/_error/form__input_message_error.css");
 @import url("./blocks/form/__button/form__button.css");
 @import url("./blocks/form/__input-error/form__input-error.css");
 @import url("./blocks/form/__input-error/_enable/form__input-error_enable.css");
-
 @import url("./blocks/pops/pops.css");
 @import url("./blocks/popup/popup.css");
 @import url("./blocks/popup/__container/popup__container.css");
@@ -58,7 +49,6 @@
 @import url("./blocks/popup/__title/-delete/popup__title-delete.css");
 @import url("./blocks/popup/__avatar-container/popup__avatar-container.css");
 @import url("./blocks/profile/__avatar/-edit/profile__avatar-edit.css");
-
 @import url("./blocks/auth-form/auth-form.css");
 @import url("./blocks/auth-form/__input/auth-form__input.css");
 @import url("./blocks/auth-form/__welcome/auth-form__welcome.css");
@@ -66,7 +56,6 @@
 @import url("./blocks/auth-form/__input-error/auth-form__input-error.css");
 @import url("./blocks/auth-form/__link/auth-form__link.css");
 @import url("./blocks/auth-form/__text/auth-form__text.css");
-
 @import url("./blocks/infotooltip/infotooltip.css");
 @import url("./blocks/infotooltip/__image/infotooltip__image.css");
 @import url("./blocks/infotooltip/__text/infotooltip__text.css");
