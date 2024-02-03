@@ -3,11 +3,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
+const cors = require('cors');
 const { celebrate, Joi, errors } = require('celebrate');
 const router = require('./routes');
 const defaultError = require('./errors/default');
 const { createUser, login } = require('./controllers/users');
-const cors = require('./middlewares/cors');
 const auth = require('./middlewares/auth');
 const { REGEXP } = require('./utils/constants');
 const NotFoundError = require('./errors/notfound');
@@ -16,6 +16,8 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { PORT = 3000 } = process.env;
 const app = express();
 
+app.use(cors());
+
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
 
 app.use(helmet());
@@ -23,7 +25,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(requestLogger);
-app.use(cors);
 
 app.get('/crash-test', () => {
   setTimeout(() => {
