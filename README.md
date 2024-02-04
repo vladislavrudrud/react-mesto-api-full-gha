@@ -9,7 +9,7 @@
 
 Адрес репозитория: https://github.com/vladislavrudrud/react-mesto-api-full-gha
 
-IP-адрес 158.160.53.43
+IP 158.160.53.43
 
 Frontend https://kolos.nomoredomainsmonster.ru
 
