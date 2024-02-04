@@ -6,12 +6,7 @@ const { OK, CREATED } = require('../utils/constants');
 
 const getAllCards = (req, res, next) => {
   Card.find({})
-    .then((cards) => {
-      if (!cards) {
-        throw new NotFoundError('Публикации не найдены!');
-      }
-      return res.send(cards);
-    })
+    .then((cards) => res.send(cards))
     .catch(next);
 };
 

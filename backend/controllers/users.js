@@ -12,12 +12,7 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 
 const getAllUsers = (req, res, next) => {
   User.find({})
-    .then((users) => {
-      if (!users) {
-        throw new NotFoundError('Пользователи не найдены!');
-      }
-      return res.send(users);
-    })
+    .then((users) => res.send(users))
     .catch(next);
 };
 
